@@ -18,7 +18,9 @@ namespace BackProcess
         {
             try {
                 //intervalo = 1000 * Int16.Parse(args[0]);
-                intervalo = 1000 * Int16.Parse(Environment.GetEnvironmentVariable("SEGUNDOS"));
+                intervalo = 1000 * Int16.Parse(
+                    Environment.GetEnvironmentVariable("SEGUNDOS")
+                    );
             } catch  {  }
 
             ShowThreadInfo("Aplicación");
@@ -27,7 +29,7 @@ namespace BackProcess
                 var t = Task.Run(() => ShowThreadInfo($"Tarea {++count}"));
                 // Esperamos que acabe la tarea
                 t.Wait();
-                // Esperamos intervalo segundos
+                // Esperamos el intervalo
                 System.Threading.Thread.Sleep(intervalo);
             }
         }
