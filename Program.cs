@@ -14,7 +14,7 @@ namespace BackProcess
         // Contador de ejecuciones
         static int count = 0;
 
-        public static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             try {
                 //intervalo = 1000 * Int16.Parse(args[0]);
@@ -35,10 +35,18 @@ namespace BackProcess
         }
 
         // Hilo que realiza nuestra tarea
-        static void ShowThreadInfo(String s)
+        async static void ShowThreadInfo(String s)
         {
             Console.WriteLine("{0} thread ID: {1}",
                     s, Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine("Asincrona ....");
+            await TareaAsincrona(3000);
+            Console.WriteLine("Asincrona Fin {0}",s );
+        }
+
+        static async Task TareaAsincrona(int number)
+        {
+            await Task.Delay(number);;
         }
     }
 }
