@@ -22,31 +22,33 @@ namespace BackProcess
                     Environment.GetEnvironmentVariable("SEGUNDOS")
                     );
             } catch  {  }
-
+Console.WriteLine("Main Empezamos");
             ShowThreadInfo("Aplicación");
             while (count < 5)
             {
                 var t = Task.Run(() => ShowThreadInfo($"Tarea {++count}"));
-                // Esperamos que acabe la tarea
+                // Esperamos que acabe el hilo (si interesa)
                 t.Wait();
                 // Esperamos el intervalo
                 System.Threading.Thread.Sleep(intervalo);
             }
+Console.WriteLine("Main Acabamos");
+
         }
 
         // Hilo que realiza nuestra tarea
         async static void ShowThreadInfo(String s)
         {
-            Console.WriteLine("{0} thread ID: {1}",
-                    s, Thread.CurrentThread.ManagedThreadId);
-            Console.WriteLine("Asincrona ....");
-            await TareaAsincrona(3000);
-            Console.WriteLine("Asincrona Fin {0}",s );
+            var id = Thread.CurrentThread.ManagedThreadId;
+            Console.WriteLine($"{s} thread ID: {id}");
+            await TareaAsincrona(3000, id );
         }
 
-        static async Task TareaAsincrona(int number)
+        static async Task TareaAsincrona(int number, int id)
         {
-            await Task.Delay(number);;
+            Console.WriteLine($"Asincrona begin {id}");
+            await Task.Delay(number);
+            Console.WriteLine($"Asincrona Fin {id}");
         }
     }
 }
