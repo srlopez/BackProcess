@@ -6,14 +6,29 @@ Plantilla ejemplo de un proceso `dotnet` consola que:
 
 - Obtiene de una variable de entorno SEGUNDOS en intervalo que tarda en volver a ejecutar la tarea (Por defecto 5 segundos)
 
+- En cada thread lanza una tarea asíncrona... por que sí.
+
 ```bash
 export SEGUNDOS=1 # set SEGUNDOS=1
 dotnet run 
-Aplicación thread ID: 1
-Tarea 1 thread ID: 4
-Tarea 2 thread ID: 4
-Tarea 3 thread ID: 6
-Tarea 5 thread ID: 6
+12556ff3: Main Empezamos
+12556ff3: Aplicación thread ID: 1
+12556ff3: Asincrona begin 1,  1/24/2022 7:13:34 PM
+12556ff3: Tarea 1 thread ID: 4
+12556ff3: Asincrona begin 4,  1/24/2022 7:13:34 PM
+12556ff3: Tarea 2 thread ID: 4
+12556ff3: Asincrona begin 4,  1/24/2022 7:13:35 PM
+12556ff3: Tarea 3 thread ID: 5
+12556ff3: Asincrona begin 5,  1/24/2022 7:13:36 PM
+12556ff3: Asincrona Fin 1
+12556ff3: Asincrona Fin 4
+12556ff3: Tarea 4 thread ID: 5
+12556ff3: Asincrona begin 5,  1/24/2022 7:13:37 PM
+12556ff3: Tarea 5 thread ID: 5
+12556ff3: Asincrona Fin 4
+12556ff3: Asincrona begin 5,  1/24/2022 7:13:38 PM
+12556ff3: Asincrona Fin 5
+12556ff3: Main Acabamos
 ```
 
 Contenerizamos la [imagen](https://docs.microsoft.com/es-es/dotnet/core/docker/build-container?tabs=windows) con el siguiente `Dockerfile` :
@@ -69,4 +84,6 @@ services:
       SEGUNDOS: 3
 ```
 
-y lo lanzamos con `docker-compose up`
+y lo lanzamos con `docker-compose up`.
+Al finalizar la primera ejecución nos devuelve el prompt de la consola,  pero con `docker-compose logs` vemos que continúa ejecutándose.
+Con `docker-compose ps` podemos ver el estado de nuestro contenedor.
