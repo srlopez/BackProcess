@@ -7,3 +7,5 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw

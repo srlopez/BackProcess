@@ -30,6 +30,13 @@ dotnet run
 12556ff3: Asincrona Fin 5
 12556ff3: Main Acabamos
 ```
+## Debug con Docker
+Eliminamos o renombremos los Dockerfile/docker.compose.yml que tengamos.
+Comando Docker Add Dockerfile, pregunta varias cosas y si queremos y docker-compose también....
+Modifica la configuración de Launch añadiendo una nueva tarea
+Y es esa la que debemos arrancar en modo debug.
+
+
 
 Contenerizamos la [imagen](https://docs.microsoft.com/es-es/dotnet/core/docker/build-container?tabs=windows) con el siguiente `Dockerfile` :
 
@@ -87,3 +94,4 @@ services:
 y lo lanzamos con `docker-compose up`.
 Al finalizar la primera ejecución nos devuelve el prompt de la consola,  pero con `docker-compose logs` vemos que continúa ejecutándose.
 Con `docker-compose ps` podemos ver el estado de nuestro contenedor.
+
